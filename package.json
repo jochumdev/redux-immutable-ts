@@ -86,8 +86,7 @@
     "test:watch": "test -- --watch",
     "test:cov": "test -- --coverage",
     "build": "rollup -c",
-    "prepare": "yarn run clean && yarn run check-types && yarn run format:check && yarn run lint",
-    "prepublish": "yarn run build"
+    "prepare": "yarn run clean && yarn run check-types && yarn run format:check && yarn run lint && yarn run build"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.7"
