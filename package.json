@@ -1,6 +1,6 @@
 {
   "name": "@minadmin/redux-immutable-ts",
-  "version": "0.2.0-dev0",
+  "version": "0.1.0-dev0",
   "description": "redux-immutable-ts is used to create an equivalent function of Redux combineReducers that works with Immutable.js state which is written in typescript.",
   "main": "lib/redux-immutable-ts.js",
   "unpkg": "dist/redux-immutable-ts.js",
@@ -19,7 +19,8 @@
   },
   "keywords": [
     "immutable",
-    "redux"
+    "redux",
+    "typescript"
   ],
   "author": {
     "name": "Gajus Kuizinas",
@@ -85,7 +86,8 @@
     "test:watch": "test -- --watch",
     "test:cov": "test -- --coverage",
     "build": "rollup -c",
-    "prepare": "yarn run clean && yarn run check-types && yarn run format:check && yarn run lint"
+    "prepare": "yarn run clean && yarn run check-types && yarn run format:check && yarn run lint",
+    "prepublish": "yarn run build"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.7"
