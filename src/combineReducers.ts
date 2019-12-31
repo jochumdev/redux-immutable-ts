@@ -1,30 +1,22 @@
 import { AnyAction, ReducersMapObject } from "redux";
 import Immutable from "immutable";
-import {
-  getUnexpectedInvocationParameterMessage,
-  validateNextState
-} from "./utilities";
+import { getUnexpectedInvocationParameterMessage } from "./utilities";
 
-export default (
+export default <S extends Immutable.Map<string, any>>(
   reducers: ReducersMapObject<any, AnyAction>,
-  getDefaultState: () => Immutable.Map<any, any> = Immutable.Map
-): Function => {
+  getDefaultState: () => S
+): ((inputState: S | undefined, action: AnyAction) => S) => {
   const reducerKeys = Object.keys(reducers);
 
-  let defaultState = Immutable.Map();
-  const fn = getDefaultState as Function;
-  if (typeof getDefaultState !== "undefined") {
-    defaultState = fn();
-  }
-
   // eslint-disable-next-line space-infix-ops
-  return (
-    inputState: Immutable.Map<any, any> = defaultState,
-    action: AnyAction
-  ): Immutable.Map<any, any> => {
+  return (inputState: S | undefined, action: AnyAction): S => {
+    if (typeof inputState === "undefined") {
+      inputState = getDefaultState();
+    }
+
     // eslint-disable-next-line no-process-env
     if (process.env.NODE_ENV !== "production") {
-      const warningMessage = getUnexpectedInvocationParameterMessage(
+      const warningMessage = getUnexpectedInvocationParameterMessage<S>(
         inputState,
         reducers,
         action
@@ -42,7 +34,15 @@ export default (
         const currentDomainState = temporaryState.get(reducerName);
         const nextDomainState = reducer(currentDomainState, action);
 
-        validateNextState(nextDomainState, reducerName, action);
+        if (nextDomainState === undefined) {
+          throw new Error(
+            'Reducer "' +
+              reducerName +
+              '" returned undefined when handling "' +
+              action.type +
+              '" action. To ignore an action, you must explicitly return the previous state.'
+          );
+        }
 
         temporaryState.set(reducerName, nextDomainState);
       });

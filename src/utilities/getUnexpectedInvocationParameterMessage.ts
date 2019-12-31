@@ -2,8 +2,8 @@ import Immutable from "immutable";
 import getStateName from "./getStateName";
 import { AnyAction } from "redux";
 
-export default (
-  state: Immutable.Map<any, any>,
+export default <S extends Immutable.Map<string, any>>(
+  state: S | undefined | Object,
   reducers: Object,
   action: AnyAction
 ) => {
@@ -29,26 +29,25 @@ export default (
     );
   }
 
-  const unexpectedStatePropertyNames = state
-    .toSeq()
-    .keySeq()
-    .toArray()
-    .filter(name => {
-      return !reducers.hasOwnProperty(name);
-    });
-
-  if (unexpectedStatePropertyNames.length > 0) {
-    return (
-      "Unexpected " +
-      (unexpectedStatePropertyNames.length === 1 ? "property" : "properties") +
-      ' "' +
-      unexpectedStatePropertyNames.join('", "') +
-      '" found in ' +
-      stateName +
-      '. Expected to find one of the known reducer property names instead: "' +
-      reducerNames.join('", "') +
-      '". Unexpected properties will be ignored.'
+  if (Immutable.isMap(state)) {
+    let stateMap = state as Immutable.Map<string, unknown>;
+    const unexpectedStatePropertyNames = stateMap.filter(
+      (_, name) => !reducers.hasOwnProperty(name)
     );
+
+    if (unexpectedStatePropertyNames.size > 0) {
+      return (
+        "Unexpected " +
+        (unexpectedStatePropertyNames.size === 1 ? "property" : "properties") +
+        ' "' +
+        [unexpectedStatePropertyNames.keys()].join('", "') +
+        '" found in ' +
+        stateName +
+        '. Expected to find one of the known reducer property names instead: "' +
+        reducerNames.join('", "') +
+        '". Unexpected properties will be ignored.'
+      );
+    }
   }
 
   return null;
