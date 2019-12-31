@@ -1,6 +1,6 @@
 {
   "name": "@minadmin/redux-immutable-ts",
-  "version": "0.1.0-dev0",
+  "version": "0.2.1",
   "description": "redux-immutable-ts is used to create an equivalent function of Redux combineReducers that works with Immutable.js state which is written in typescript.",
   "main": "lib/redux-immutable-ts.js",
   "unpkg": "dist/redux-immutable-ts.js",
@@ -51,6 +51,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-preset-es2015": "^6.24.1",
     "cross-env": "^6.0.3",
     "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.1.0",
@@ -72,8 +73,7 @@
     "rollup-plugin-terser": "^5.1.3",
     "rollup-plugin-typescript2": "^0.25.3",
     "rxjs": "^6.5.4",
-    "typescript": "^3.7.4",
-    "babel-preset-es2015": "^6.24.1"
+    "typescript": "^3.7.4"
   },
   "scripts": {
     "clean": "rimraf lib dist es coverage types",
