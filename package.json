@@ -1,6 +1,6 @@
 {
   "name": "@minadmin/redux-immutable-ts",
-  "version": "0.2.1",
+  "version": "0.2.2-dev0",
   "description": "redux-immutable-ts is used to create an equivalent function of Redux combineReducers that works with Immutable.js state which is written in typescript.",
   "main": "lib/redux-immutable-ts.js",
   "unpkg": "dist/redux-immutable-ts.js",
