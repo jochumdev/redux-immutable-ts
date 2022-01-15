@@ -81,6 +81,7 @@ export default [
         extensions
       }),
       replace({
+        'preventAssignment': true,
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       typescript({ tsconfigOverride: noDeclarationFiles }),
@@ -118,6 +119,7 @@ export default [
         exclude: 'node_modules/**'
       }),
       replace({
+        'preventAssignment': true,
         'process.env.NODE_ENV': JSON.stringify('development')
       })
     ]
@@ -142,6 +144,7 @@ export default [
         exclude: 'node_modules/**'
       }),
       replace({
+        'preventAssignment': true,
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       terser({
